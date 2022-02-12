@@ -17,10 +17,11 @@
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
+    "@tillpos/xml-escpos-helper": "^0.2.2",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "node-thermal-printer": "^4.1.2",
-    "@tillpos/xml-escpos-helper": "^0.2.2"
+    "node-thermal-printer": "^4.1.2"
   },
   "devDependencies": {
     "concurrently": "^5.3.0"

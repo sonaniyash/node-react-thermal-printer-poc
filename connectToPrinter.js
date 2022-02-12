@@ -4,6 +4,8 @@ const connectToPrinter = (host, port, buffer) => {
   return new Promise((resolve, reject) => {
     let device = new net.Socket();
 
+    console.log('device', device);
+
     device.on("close", () => {
       if (device) {
         device.destroy();
@@ -13,7 +15,9 @@ const connectToPrinter = (host, port, buffer) => {
       return;
     });
 
-    device.on("error", reject);
+    device.on("error", () => {
+      console.log('error coming')
+    });
 
     device.connect(port, host, () => {
       device.write(buffer);

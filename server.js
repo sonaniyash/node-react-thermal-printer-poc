@@ -4,11 +4,13 @@ const bodyParser = require('body-parser');
 const { EscPos } = require("@tillpos/xml-escpos-helper");
 const connectToPrinter = require("./connectToPrinter");
 const fs = require("fs");
+var cors = require('cors')
 // const { getPrinters } = require('printer');
 // const ThermalPrinter = require("node-thermal-printer").printer;
 // const PrinterTypes = require("node-thermal-printer").types;
 
 const app = express();
+app.use(cors());
 const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
