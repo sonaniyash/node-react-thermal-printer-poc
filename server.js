@@ -16,36 +16,40 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.post('/api/world', async (req, res) => {
-  const printer = new ThermalPrinter({
-    type: 'epson',                                  // Printer type: 'star' or 'epson'
-    interface: 'http://192.168.1.211:9100',                       // Printer interface
-    characterSet: 'SLOVENIA',                                 // Printer character set - default: SLOVENIA
-    removeSpecialCharacters: false,                           // Removes special characters - default: false
-    lineCharacter: "=",                                       // Set character for lines - default: "-"
-    options: {                                                 // Additional options
-      timeout: 5000                                           // Connection timeout (ms) [applicable only for network printers] - default: 3000
-    }
-  });
-
-  const isConnected = await printer.isPrinterConnected();      // Check if printer is connected, return bool of status
-  console.log('isConnected', isConnected);
-  // let execute = await printer.execute();                      // Executes all the commands. Returns success or throws error
-  // let raw = await printer.raw(Buffer.from("Hello world"));    // Print instantly. Returns success or throws error
-  // printer.print("Hello World");                               // Append text
-  printer.println("Hello World");                            // Append text with new line
-  // printer.openCashDrawer();    
-  printer.cut();
-
   try {
-    const execute = printer.execute()
-    console.error("Print done!");
-  } catch (error) {
-    console.log("Print failed:", error);
-  }
+    const printer = new ThermalPrinter({
+      type: 'epson',                                  // Printer type: 'star' or 'epson'
+      interface: 'http://192.168.1.211:9100',                       // Printer interface
+      characterSet: 'SLOVENIA',                                 // Printer character set - default: SLOVENIA
+      removeSpecialCharacters: false,                           // Removes special characters - default: false
+      lineCharacter: "=",                                       // Set character for lines - default: "-"
+      options: {                                                 // Additional options
+        timeout: 5000                                           // Connection timeout (ms) [applicable only for network printers] - default: 3000
+      }
+    });
 
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`,
-  );
+    const isConnected = await printer.isPrinterConnected();      // Check if printer is connected, return bool of status
+    console.log('isConnected', isConnected);
+    // let execute = await printer.execute();                      // Executes all the commands. Returns success or throws error
+    // let raw = await printer.raw(Buffer.from("Hello world"));    // Print instantly. Returns success or throws error
+    // printer.print("Hello World");                               // Append text
+    printer.println("Hello World");                            // Append text with new line
+    // printer.openCashDrawer();    
+    printer.cut();
+
+    try {
+      const execute = printer.execute()
+      console.error("Print done!");
+    } catch (error) {
+      console.log("Print failed:", error);
+    }
+
+    res.send(
+      `I received your POST request. This is what you sent me: ${req.body.post}`,
+    );
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 // if (process.env.NODE_ENV === 'production') {
