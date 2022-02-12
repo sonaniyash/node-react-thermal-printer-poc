@@ -18,7 +18,7 @@ app.get('/api/hello', (req, res) => {
 app.post('/api/world', async (req, res) => {
   const printer = new ThermalPrinter({
     type: 'epson',                                  // Printer type: 'star' or 'epson'
-    interface: 'tcp://192.168.1.211:9100',                       // Printer interface
+    interface: 'http://192.168.1.211:9100',                       // Printer interface
     characterSet: 'SLOVENIA',                                 // Printer character set - default: SLOVENIA
     removeSpecialCharacters: false,                           // Removes special characters - default: false
     lineCharacter: "=",                                       // Set character for lines - default: "-"
