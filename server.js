@@ -16,10 +16,9 @@ app.get('/api/hello', (req, res) => {
 });
 
 app.post('/api/world', async (req, res) => {
-  console.log(req.body);
   const printer = new ThermalPrinter({
     type: 'epson',                                  // Printer type: 'star' or 'epson'
-    interface: 'tcp://192.168.1.211',                       // Printer interface
+    interface: 'tcp://192.168.1.211:9100',                       // Printer interface
     characterSet: 'SLOVENIA',                                 // Printer character set - default: SLOVENIA
     removeSpecialCharacters: false,                           // Removes special characters - default: false
     lineCharacter: "=",                                       // Set character for lines - default: "-"
@@ -28,7 +27,7 @@ app.post('/api/world', async (req, res) => {
     }
   });
 
-  let isConnected = await printer.isPrinterConnected();      // Check if printer is connected, return bool of status
+  const isConnected = await printer.isPrinterConnected();      // Check if printer is connected, return bool of status
   console.log('isConnected', isConnected);
   // let execute = await printer.execute();                      // Executes all the commands. Returns success or throws error
   // let raw = await printer.raw(Buffer.from("Hello world"));    // Print instantly. Returns success or throws error
